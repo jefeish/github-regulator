@@ -1,0 +1,26 @@
+--- 
+name: Maintain Team-Permissions
+description: Reverse Team-Permission changes
+priority: 0
+
+conditions:
+  all:
+  - fact: name
+    operator: equal 
+    value: team 
+    description: We received a 'Team Event'
+
+  - fact: payload.action 
+    operator: equal 
+    value: edited 
+    description: Team-Repo permissions where changed
+
+  - fact: payload.sender.type
+    operator: notEqual
+    value: Bot
+    description: Prevent loops
+
+event:
+  type: teamPermissionMaintainer
+  params:
+ 

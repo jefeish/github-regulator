@@ -1,0 +1,58 @@
+<mxfile host="65bd71144e">
+    <diagram id="O2QjjLxtZTsg4sCn23vU" name="Page-1">
+        <mxGraphModel dx="627" dy="756" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;font color=&quot;#99ff99&quot;&gt;Server-Side Rules&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="80" width="480" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Organization" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#333333;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="120" width="240" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;font color=&quot;#ffff99&quot;&gt;&lt;font&gt;Centralized &lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;font color=&quot;#999999&quot;&gt;Client-Side Rules&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#333333;fontColor=#FFFFFF;strokeColor=#CCCCCC;align=center;spacingRight=50;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="160" width="240" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="Repo" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Files.svg;labelBackgroundColor=none;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="60.64" y="220" width="27.43" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="Repo" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Files.svg;labelBackgroundColor=none;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="110.64" y="220" width="27.43" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="Repo" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Files.svg;labelBackgroundColor=none;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="160.64" y="220" width="27.43" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="Rules Scope/Hierarchy" style="text;html=1;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#666666;" vertex="1" parent="1">
+                    <mxGeometry x="170" y="40" width="230" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="&lt;font color=&quot;#ff6666&quot;&gt;Local &lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#999999&quot;&gt;Client-Side Rules&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#333333;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="210" y="160" width="70" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="Repo" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Files.svg;labelBackgroundColor=none;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="231.93" y="220" width="27.43" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="Organization" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#333333;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="280" y="120" width="240" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="&lt;font color=&quot;#ffff99&quot;&gt;&lt;font&gt;Centralized &lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;font color=&quot;#999999&quot;&gt;Client-Side Rules&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#333333;fontColor=#FFFFFF;strokeColor=#CCCCCC;spacingRight=50;" vertex="1" parent="1">
+                    <mxGeometry x="280" y="160" width="240" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="Repo" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Files.svg;labelBackgroundColor=none;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="300.64" y="220" width="27.43" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="Repo" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Files.svg;labelBackgroundColor=none;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="350.64" y="220" width="27.43" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="Repo" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Files.svg;labelBackgroundColor=none;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="400.64" y="220" width="27.43" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="&lt;font color=&quot;#ff6666&quot;&gt;Local &lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#999999&quot;&gt;Client-Side Rules&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#333333;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="450" y="160" width="70" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="Repo" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Files.svg;labelBackgroundColor=none;fontColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+                    <mxGeometry x="471.93" y="220" width="27.43" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

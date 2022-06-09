@@ -1,0 +1,88 @@
+---
+# ----------------------------------------------------------------------------------------------------------------------
+# List of available Webhook events: https://developer.github.com/webooks/event-payloads
+# Content syntax:
+# <event_name>: [<handler>, <handler>, ...]
+#
+# The 'handler' name represents a .js class file name, inside the 'eventHandlers' folder
+#
+# Note: be careful not to create loops! Eg.: an `issues_comment.create` that creates an issues comment :(
+# ----------------------------------------------------------------------------------------------------------------------
+
+check_suite.requested: [rulesEngineHandler]
+check_suite.completed: [rulesEngineHandler]
+create: [rulesEngineHandler]
+issues.opened: [rulesEngineHandler]
+issues.closed: []
+issues.edited: [rulesEngineHandler]
+issues.deleted: []
+issues.pinned: []
+issues.unpinned: []
+issues.reopened: []
+issues.assigned: []
+issues.unassigned: []
+issues.labeled: []
+issues.unlabeled: []
+issues.locked: []
+issues.unlocked: []
+issues.transferred: []
+issues.milestoned: []
+issues.demilestoned: []
+
+issue_comment.created: []
+issue_comment.edited: []
+issue_comment.deleted: []
+
+pull_request.assigned: []
+pull_request.unassigned: []
+pull_request.labeled: []
+pull_request.unlabeled: []
+pull_request.opened: []
+pull_request.edited: []
+pull_request.closed: []
+pull_request.reopened: []
+pull_request.synchronize: []
+pull_request.ready_for_review: []
+pull_request.locked: []
+pull_request.unlocked: []
+
+pull_request_review.submitted: []
+pull_request_review.edited: []
+pull_request_review.dismissed: []
+
+pull_request_review_comment.created: []
+pull_request_review_comment.edited: []
+pull_request_review_comment.deleted: []
+
+repository.created: [rulesEngineHandler]
+repository.deleted: []
+repository.archived: []
+repository.unarchived: []
+repository.edited: []
+repository.renamed: []
+repository.transferred: []
+repository.publicized: []
+repository.privatized: []
+
+team.created: [rulesEngineHandler]
+team.deleted: [rulesEngineHandler]
+team.edited: [rulesEngineHandler]
+team.added_to_repository: [rulesEngineHandler]
+team.removed_from_repository: [rulesEngineHandler]
+
+project.created: []
+project.edited: []
+project.closed: []
+project.reopened: []
+project.deleted: []
+
+project_card.created: []
+project_card.edited: []
+project_card.moved: []
+project_card.converted: []
+project_card.deleted: []
+
+project_column.created: []
+project_column.edited: []
+project_column.moved: []
+project_column.deleted: []

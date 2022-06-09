@@ -1,0 +1,70 @@
+---
+name: Branch protection Policy for 'feature' branch
+description: A policy to set branch protection rules at Repo/Branch creation
+priority: 1
+
+conditions:
+  all:
+    - fact: name
+      operator: equal
+      value: create
+      description: incoming event is a 'create'
+
+    - fact: payload.ref_type
+      operator: equal
+      value: branch
+      description: the source is a 'branch'
+
+    - fact: payload.ref
+      operator: regex
+      value: ^feature
+      description: the name of our new branch starts with 'feature'
+
+    - fact: payload.repository.name
+      operator: regex
+      value: ^test
+      description: Repo name starts with 'test'
+
+    - fact: payload.sender.type
+      operator: notEqual
+      value: Bot
+      description: Prevent loops
+      
+event:
+  type: repositoryBranchProtection
+  params:
+    # If the `branch_name` is omitted, the name of the default branch will be used.
+    branch_name: feature/*
+    rules:
+      allowsDeletions: true
+      allowsForcePushes: true
+      bypassForcePushActorIds:
+        users: 
+        - jefeish
+        teams:
+        - foo
+      bypassPullRequestActorIds: 
+        users:
+        - jefeish
+        teams:
+        - foo
+      clientMutationId: null
+      dismissesStaleReviews: true
+      isAdminEnforced: true
+      pushActorIds: 
+        users: 
+        - jefeish
+        teams:
+        - foo
+      requiredApprovingReviewCount: 2
+      requiredStatusCheckContexts: []
+      requiresApprovingReviews: true
+      requiresCodeOwnerReviews: true
+      requiresCommitSignatures: true
+      requiresConversationResolution: true
+      requiresLinearHistory: true
+      requiresStatusChecks: true
+      requiresStrictStatusChecks: true
+      restrictsPushes: true
+      restrictsReviewDismissals: true
+      reviewDismissalActorIds: []

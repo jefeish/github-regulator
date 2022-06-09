@@ -1,0 +1,36 @@
+---
+name: Repository Team Permission
+description: A policy to assign Team(s) with permission to a Repo
+priority: 1
+
+conditions:
+  all:
+    - fact: name
+      operator: equal
+      value: create
+      description: incoming event was a 'create'
+
+    - fact: payload.ref_type
+      operator: equal
+      value: branch
+      description: the source was a 'branch'
+
+    - fact: payload.repository.name
+      operator: regex
+      value: ^test
+      description: Repo name starts with 'test'
+
+    - fact: payload.sender.type
+      operator: notEqual
+      value: Bot
+      description: Prevent loops
+
+event:
+  type: repositoryAddTeam
+  params:
+    teams:
+      - name: B-Team
+        permission: pull
+      - name: foo
+        permission: push
+  

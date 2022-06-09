@@ -1,0 +1,18 @@
+--- 
+name: Add Issue comment
+description: Add add a comment to an issue when created by a certain user
+priority: 0
+
+conditions:
+  all:
+    - fact: payload.issue.user.login
+      operator: equal
+      value: jefeish
+    # Prevent loops
+    - fact: payload.sender.type
+      operator: notEqual
+      value: Bot
+event:
+  type: issuesCreateComment
+  params:
+    comment: Let's play by the Rules... This is a Server Rule!

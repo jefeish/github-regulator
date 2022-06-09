@@ -1,0 +1,79 @@
+{
+  "name": "probot-policy-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "probot-Policy-App",
+  "author": "jefeish <jefeish@github.com>",
+  "license": "ISC",
+  "repository": "https://github.com/github/probot-policy-app.git",
+  "homepage": "https://github.com/github/probot-policy-app",
+  "bugs": "https://github.com/github/probot-policy-app/issues",
+  "keywords": [
+    "probot",
+    "github",
+    "probot-app"
+  ],
+  "scripts": {
+    "dev": "nodemon --exec \"npm start\"",
+    "debug": "node --nolazy ./src/index.js",
+    "start": "probot run ./src/index.js",
+    "test": "jest",
+    "test:watch": "npm run test -- --watchAll"
+  },
+  "jest": {
+    "testRegex": "(test/.*(test)\\.js)",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/",
+      "/test/tmp/",
+      "./src/eventHandlers/common/command.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 75
+      }
+    }
+  },
+  "dependencies": {
+    "@octokit/auth-app": "^3.6.1",
+    "@octokit/core": "^3.6.0",
+    "@octokit/plugin-enterprise-server": "^10.6.4",
+    "acorn": "^7.1.0",
+    "bootstrap": "^3.4.1",
+    "bootstrap-autocomplete": "2.3.7",
+    "clone": "^2.1.2",
+    "debug": "^4.1.1",
+    "ejs": "^3.1.6",
+    "events": "^3.2.0",
+    "express-vue": "^5.15.0",
+    "flat": "^5.0.0",
+    "handlebars": "^4.7.7",
+    "hash-it": "^4.0.5",
+    "jquery": "^1.12.4",
+    "js-yaml": "^3.14.0",
+    "json-rules-engine": "^5.0.4",
+    "jsonpath-plus": "^4.0.0",
+    "lodash.isobjectlike": "^4.0.0",
+    "nodemon": "^2.0.12",
+    "probot": "^12.22.0",
+    "probot-config": "^1.1.0",
+    "serve-favicon": "^2.5.0",
+    "swagger-ui-express": "^4.1.6",
+    "yq": "^0.0.1"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.4.1",
+    "bootstrap-autocomplete": "^2.3.7",
+    "husky": "^7.0.4",
+    "jest": "^26.4.0",
+    "nock": "^13.0.4",
+    "smee-client": "^1.2.2"
+  },
+  "engines": {
+    "node": ">= 10.13.0"
+  }
+}
