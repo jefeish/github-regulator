@@ -6,8 +6,10 @@
 # Probot Policy App
 
 A GitHub App to **`automatically apply policies`** such as `Branch Protection`, `Team-Repo Assignment`, etc.
+<br><br>
+![overview](./docs/images/Rules-Concept-2.png)
 
-![concept](./docs/images/concept.png)
+<!-- ![concept](./docs/images/concept.png) -->
 
 ## Key features
 
