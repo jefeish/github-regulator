@@ -69,7 +69,7 @@ class rulesEngineHandler extends Command {
     catch (err) {
       console.error(err)
       console.error("\n Please provide a '.github/config.yml' file. Terminating!")
-      console.exit(1)
+      process.exit(1)
     }
   }
 

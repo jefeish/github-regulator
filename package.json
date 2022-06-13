@@ -1,18 +1,12 @@
 {
-  "name": "probot-policy-app",
+  "name": "policy-app",
   "version": "1.0.0",
-  "private": true,
-  "description": "probot-Policy-App",
-  "author": "jefeish <jefeish@github.com>",
-  "license": "ISC",
-  "repository": "https://github.com/github/probot-policy-app.git",
-  "homepage": "https://github.com/github/probot-policy-app",
-  "bugs": "https://github.com/github/probot-policy-app/issues",
-  "keywords": [
-    "probot",
-    "github",
-    "probot-app"
-  ],
+  "description": "![coverage](https://img.shields.io/badge/coverage-4.5%25-red) ![release](https://img.shields.io/badge/release-1.2-blue) ![ghes](https://img.shields.io/badge/GHES_compliant-v3.5-darkgreen) ![ghes](https://img.shields.io/badge/GITHUB_compliant-true-orange) # Probot Policy App",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
   "scripts": {
     "dev": "nodemon --exec \"npm start\"",
     "debug": "node --nolazy ./src/index.js",
@@ -20,6 +14,19 @@
     "test": "jest",
     "test:watch": "npm run test -- --watchAll"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefeish/policy-app.git"
+  },
+  "keywords": [
+    "policy"
+  ],
+  "author": "jefeish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jefeish/policy-app/issues"
+  },
+  "homepage": "https://github.com/jefeish/policy-app#readme",
   "jest": {
     "testRegex": "(test/.*(test)\\.js)",
     "collectCoverage": true,
@@ -37,6 +44,9 @@
         "lines": 75
       }
     }
+  },
+  "engines": {
+    "node": ">= 10.13.0"
   },
   "dependencies": {
     "@octokit/auth-app": "^3.6.1",
@@ -59,7 +69,7 @@
     "jsonpath-plus": "^4.0.0",
     "lodash.isobjectlike": "^4.0.0",
     "nodemon": "^2.0.12",
-    "probot": "^12.22.0",
+    "probot": "^12.2.4",
     "probot-config": "^1.1.0",
     "serve-favicon": "^2.5.0",
     "swagger-ui-express": "^4.1.6",
@@ -72,8 +82,5 @@
     "jest": "^26.4.0",
     "nock": "^13.0.4",
     "smee-client": "^1.2.2"
-  },
-  "engines": {
-    "node": ">= 10.13.0"
   }
 }
