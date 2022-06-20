@@ -1,6 +1,9 @@
 /**
  * @description Event Handler Class to assign one or more members to an Issue
+ *              Note: Please use this with an Issue-Event
  * @param
+ * assignees: 
+ *   - jefeish
  */
 
 const Command = require('./common/command.js')
@@ -13,7 +16,7 @@ class issuesAddAssignees extends Command {
     }
 
     /**
-     * Singleton pattern
+     * @description Singleton pattern
      */
     static getInstance() {
         if (!instance) {
@@ -22,17 +25,24 @@ class issuesAddAssignees extends Command {
 
         return instance
     }
-
-    /**
-     * 
+    
+    /** 
      * @param {*} context 
-     * @param {*} data 
+     * @param {*} params 
      */
-    execute(context, data) {
-        context.log('issuesAddAssignees.execute()')
+    execute(context, params) {
+        const assignees = params.assignees
+        context.log.info('issuesAddAssignees.execute()')
 
-        if (typeof data == 'undefined') {
-            data = []
+        // Check if the event is an Issue-Event
+        if (!context.payload.issue) {
+            context.log.error('issuesAddAssignees.execute() - Incorrect Event')
+            context.log.error('This Event Handler can only be used with an Issue-Event [issue.created, issue.updated, issue.closed, etc]')
+            return null
+        } 
+            
+        if (typeof assignees == 'undefined') {
+            assignees = []
         }
 
         const issue = context.issue(
@@ -40,7 +50,7 @@ class issuesAddAssignees extends Command {
                 owner: context.payload.repository.owner.login,
                 repo: context.payload.repository.name,
                 issue_number: context.payload.issue.number,
-                assignees: data
+                assignees: assignees
             }
         )
 

@@ -10,7 +10,7 @@
 # With the exception that the 'server-side rules' cannot be modified by users!
 
 # Options: `Repo name`, `.` or `none` 
-rules_repo: none
+rules_repo: policies
 
 # This is a "Lazy Refresh". We only check on an incoming event, if the interval expired.
 # The reload interval for client-side rules, in minutes.

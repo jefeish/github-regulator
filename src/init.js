@@ -43,7 +43,7 @@ exports.registerEventHandlers = app => {
     // write the event registry to the log
     if (eventRegistry) {
       Object.keys(eventRegistry).forEach(event => {
-        app.log.info( event +', '+ JSON.stringify(eventRegistry[`${event}`])
+        app.log.debug( event +', '+ JSON.stringify(eventRegistry[`${event}`])
       )})
     }
   } catch (handler) {

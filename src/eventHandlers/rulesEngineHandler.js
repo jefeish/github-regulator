@@ -1,5 +1,5 @@
 /**
- * @description Event Handler Class that uses a Rules-Engine
+ * @description The Rules-Engine Handler is a special Event Handler that is used to execute a set of Rules.
  * @param
  */
 
@@ -230,27 +230,29 @@ class rulesEngineHandler extends Command {
     }
     else {
       // clean up the client-side rules from the engine and reload the rules 
-      // DO NOT touch the server - side rules
+      // DO NOT touch the server-side rules
       // ----------------------------------------------------------------------
       context.log.info('Repository rules refresh REQUIRED, last refresh ' + ((rightNow - lastRefeshTime) / 60000).toFixed(2) + ' minutes ago (set refresh time = ' + refreshInterval + ' min)')
       // Clean up - Remove all rules from the engine.
       rulesList.forEach(rule => {
         const ret = this.engine.removeRule(rule)
-        context.log.info('successfully removed rule? ' + ret)
+        context.log.debug('successfully removed rule? ' + ret)
       })
       // store the time of the last reload
       lastRefeshTime = Date.now();
 
-      // set the client-side rules location
+      // Set the client-side rules location
+      // Default is the '.github/rules' folder in the root of the event source repository
       let rules_repo = context.payload.repository.name
-
+      
       if (typeof config.rules_repo !== 'undefined' && config.rules_repo !== '.') {
         rules_repo = config.rules_repo
       }
+  
       context.log.info('rules_repo: ' + rules_repo)
 
       // get a list of Rules files from the Repository config
-      const response = await context.octokit.repos.getContent(
+      const policies = await context.octokit.repos.getContent(
         {
           owner: context.payload.repository.owner.login,
           repo: rules_repo,
@@ -259,7 +261,7 @@ class rulesEngineHandler extends Command {
       );
 
       // load the file names into an Array
-      response.data.forEach(data => {
+      policies.data.forEach(data => {
         files.push(data.name)
       })
 
@@ -276,7 +278,7 @@ class rulesEngineHandler extends Command {
         );
 
         const rule = new Rule(JSON.stringify(yaml.safeLoad(Buffer.from(ruleData.data.content, 'base64'))))
-
+        context.log.trace(rule)
         // Store the rules, so that we can remove them on Rules reload
         rulesList.push(rule)
 
@@ -371,10 +373,10 @@ class rulesEngineHandler extends Command {
 
 
     // check if client-side rules need to be reloaded, if yes, do so
-    //  if (!rules_repo.match('^none$')) {
-    //   context.log.info('rules_repo: ' + rules_repo)
-    //   await this.getClientRules(context)
-    //  }
+    if (!rules_repo.match('^none$')) {
+      context.log.info('Client side Policy Repository: ' + rules_repo)
+      await this.getClientRules(context)
+    }
 
     const facts = await this.translateToRulesFacts(context)
 
