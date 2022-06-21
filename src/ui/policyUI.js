@@ -59,11 +59,11 @@ class policyUI {
                 var policyGrid = []
                 let conditionGrid = []
                 var header = fs.readFileSync(__dirname + '/templates/header.html', 'utf8');
-                var policies = fs.readdirSync(__dirname + '/../rules/')
+                var policies = fs.readdirSync(__dirname + '/../rules/active/')
                 // PROCESS EACH POLICY IN '../rules'
                 policies.forEach(function (file) {
                     if (file.endsWith('.yml')) {
-                        const policy = fs.readFileSync(__dirname + '/../rules/' + file, 'utf8')
+                        const policy = fs.readFileSync(__dirname + '/../rules/active/' + file, 'utf8')
                         let policyData = yaml.safeLoad(policy);
                         let policyName = policyData.name
                         let policyDescription = policyData.description || '-'
