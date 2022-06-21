@@ -3,7 +3,7 @@
  *              Note: Please use this with an Issue-Event
  * @param
  * assignees: 
- *   - <user-name>
+ *   - user-name
  */
 
 const util = require('util')

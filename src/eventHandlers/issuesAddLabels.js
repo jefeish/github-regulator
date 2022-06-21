@@ -3,7 +3,7 @@
  *              Note: Please use this with an Issue-Event
  * @param
  * labels:
- *   - <label>
+ *   - label
  */
 
 const util = require('util')
