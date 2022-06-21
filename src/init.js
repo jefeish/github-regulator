@@ -14,7 +14,7 @@ const path_module = require('path');
  * | @param app
  */
 exports.registerEventHandlers = app => {
-  app.log('registerEventHandlers')
+  app.log.info('registerEventHandlers')
 
   try {
     const fileContents = fs.readFileSync('./src/eventHandlers.yml', 'utf8')
@@ -43,7 +43,7 @@ exports.registerEventHandlers = app => {
     // write the event registry to the log
     if (eventRegistry) {
       Object.keys(eventRegistry).forEach(event => {
-        app.log.info( event +', '+ JSON.stringify(eventRegistry[`${event}`])
+        app.log.debug( event +', '+ JSON.stringify(eventRegistry[`${event}`])
       )})
     }
   } catch (handler) {

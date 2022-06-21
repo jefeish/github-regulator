@@ -1,5 +1,5 @@
 /**
- * @description Event Handler Class that uses a Rules-Engine
+ * @description The Rules-Engine Handler is a special Event Handler that is used to execute a set of Rules.
  * @param
  */
 
@@ -28,7 +28,7 @@ let rulesList = []
 class rulesEngineHandler extends Command {
   constructor(rulesPath, eventHandlersPath) {
     super()
-    this.rulesPath = process.cwd() + '/src/rules'
+    this.rulesPath = process.cwd() + '/src/rules/active'
     this.eventHandlersPath = process.cwd() + '/src/eventHandlers'
     // make all Classes available, that can process an Event.
     this.loadEventHandlers(this.eventHandlersPath, handlerMap)
@@ -92,20 +92,29 @@ class rulesEngineHandler extends Command {
   /** -------------------------------------------------------------------------
    * Add custom operators to the engine
    * These operators support `Regular Expressions` or
-   * `Date Time check` (in case something needs to 'expired') 
+   * `Date Time check` (in case something needs to 'expire') 
    ------------------------------------------------------------------------- */
   loadCustomOperators() {
 
     this.engine.addOperator('doesNotInclude', (factValue, jsonValue) => {
-      return !(factValue).includes(jsonValue)
+      // console.log('doesNotInclude - factValue: ' + factValue + ' jsonValue: ' + jsonValue)
+      if(typeof factValue !== 'undefined') {
+        return !(factValue).includes(jsonValue)
+      }
+      return false
     })
 
     this.engine.addOperator('includes', (factValue, jsonValue) => {
-      return (factValue).includes(jsonValue)
+      // console.log('includes - factValue: ' + factValue + ' jsonValue: ' + jsonValue)
+      if (typeof factValue !== 'undefined') {
+        return (factValue).includes(jsonValue)
+      }
+      return false
     })
 
     this.engine.addOperator('includesAny', (factValue, jsonValue) => {
-      if (factValue !== undefined) {
+      // console.log('includesAny - factValue: ' + factValue + ' jsonValue: ' + jsonValue)
+      if (typeof factValue !== 'undefined') {
         return (factValue).every(function () { (factValue).includes(jsonValue) })
       }
       else {
@@ -114,7 +123,8 @@ class rulesEngineHandler extends Command {
     })
 
     this.engine.addOperator('doesNotIncludeAny', (factValue, jsonValue) => {
-      if (factValue === undefined) {
+      // console.log('doesNotIncludeAny - factValue: ' + factValue + ' jsonValue: ' + jsonValue)
+      if (typeof factValue === 'undefined') {
         return true
       } else {
         return !(factValue).every(function () { (factValue).includes(jsonValue) })
@@ -122,20 +132,23 @@ class rulesEngineHandler extends Command {
     })
 
     this.engine.addOperator('regex', (factValue, jsonValue) => {
-      if (factValue === undefined) {
+      // console.log('regex - factValue: ' + factValue + ' jsonValue: ' + jsonValue)
+      if (typeof factValue === 'undefined') {
         return false
       }
       return (factValue).search(jsonValue) >= 0
     })
 
     this.engine.addOperator('isEmpty', (factValue, jsonValue) => {
-      if (factValue === undefined || factValue.length == 0) {
+      // console.log('isEmpty - factValue: ' + factValue + ' jsonValue: ' + jsonValue)
+      if (typeof factValue === 'undefined' || factValue.length == 0) {
         return true
       }
     })
 
     this.engine.addOperator('notEmpty', (factValue, jsonValue) => {
-      if (factValue !== undefined && factValue.length != 0) {
+      // console.log('notEmpty - factValue: ' + factValue + ' jsonValue: ' + jsonValue)
+      if (typeof factValue !== 'undefined' && factValue.length != 0) {
         return true
       }
     })
@@ -171,7 +184,7 @@ class rulesEngineHandler extends Command {
    * @param {*} prefix - Group Rules based on file name prefix
    ------------------------------------------------------------------------- */
   getServerRules(prefix) {
-    if (typeof prefix == 'undefined') {
+    if (typeof prefix === 'undefined') {
       prefix = ''
     }
 
@@ -218,7 +231,7 @@ class rulesEngineHandler extends Command {
    ------------------------------------------------------------------------- */
   async getClientRules(context) {
     let files = []
-    context.log.info('getClientRules()')
+    context.log.debug('getClientRules()')
 
     // Reduce the overhead of loading Repo Rules for every request
     // If the 'refreshInterval' (in min) has not been exceeded, use the 'old' Rules
@@ -230,27 +243,29 @@ class rulesEngineHandler extends Command {
     }
     else {
       // clean up the client-side rules from the engine and reload the rules 
-      // DO NOT touch the server - side rules
+      // DO NOT touch the server-side rules
       // ----------------------------------------------------------------------
       context.log.info('Repository rules refresh REQUIRED, last refresh ' + ((rightNow - lastRefeshTime) / 60000).toFixed(2) + ' minutes ago (set refresh time = ' + refreshInterval + ' min)')
       // Clean up - Remove all rules from the engine.
       rulesList.forEach(rule => {
         const ret = this.engine.removeRule(rule)
-        context.log.info('successfully removed rule? ' + ret)
+        context.log.debug('successfully removed rule? ' + ret)
       })
       // store the time of the last reload
       lastRefeshTime = Date.now();
 
-      // set the client-side rules location
+      // Set the client-side rules location
+      // Default is the '.github/rules' folder in the root of the event source repository
       let rules_repo = context.payload.repository.name
 
       if (typeof config.rules_repo !== 'undefined' && config.rules_repo !== '.') {
         rules_repo = config.rules_repo
       }
+
       context.log.info('rules_repo: ' + rules_repo)
 
       // get a list of Rules files from the Repository config
-      const response = await context.octokit.repos.getContent(
+      const policies = await context.octokit.repos.getContent(
         {
           owner: context.payload.repository.owner.login,
           repo: rules_repo,
@@ -259,7 +274,7 @@ class rulesEngineHandler extends Command {
       );
 
       // load the file names into an Array
-      response.data.forEach(data => {
+      policies.data.forEach(data => {
         files.push(data.name)
       })
 
@@ -276,7 +291,7 @@ class rulesEngineHandler extends Command {
         );
 
         const rule = new Rule(JSON.stringify(yaml.safeLoad(Buffer.from(ruleData.data.content, 'base64'))))
-
+        context.log.trace(rule)
         // Store the rules, so that we can remove them on Rules reload
         rulesList.push(rule)
 
@@ -371,10 +386,10 @@ class rulesEngineHandler extends Command {
 
 
     // check if client-side rules need to be reloaded, if yes, do so
-    //  if (!rules_repo.match('^none$')) {
-    //   context.log.info('rules_repo: ' + rules_repo)
-    //   await this.getClientRules(context)
-    //  }
+    if (!rules_repo.match('^none$')) {
+      context.log.info('Client side Policy Repository: ' + rules_repo)
+      await this.getClientRules(context)
+    }
 
     const facts = await this.translateToRulesFacts(context)
 
@@ -389,7 +404,7 @@ class rulesEngineHandler extends Command {
         }
       }
     }
-    
+
     let e
     const eventName = context.name + '.' + context.payload.action
     context.log.info('eventName: ' + eventName)
@@ -403,20 +418,23 @@ class rulesEngineHandler extends Command {
           .run(facts, { cache: false })
           .then(results => {
             results.events.map(event => {
+              context.log.info('Routing to handler class: ' + event.type + '(' + context + ',' + event.params + ')')
               const m = new handlerMap[event.type]()
-              context.log.info('Routing to rulesHandler: ' + event.type + '(' + context + ',' + event.params + ')')
               m.execute(context, event.params)
             })
           })
           .catch(function (err) {
-            console.log('error: ', err)
+            context.log.error(err)
+            if (err.name === 'TypeError' && err.message.includes('handlerMap[event.type] is not a constructor')) {
+              context.log.error("Hint: The policy 'event.type:' must contain a valid event handler class name, please check the handler-class name.")
+            }
           })
       }
       else {
         context.log.debug('SENDER IS A BOT - SKIP !')
       }
     } catch (err) {
-      context.log.error('error: ', util.inspect(err))
+      context.log.error(util.inspect(err))
     }
   }
 }

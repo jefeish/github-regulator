@@ -15,11 +15,6 @@ conditions:
       value: added_to_repository 
       description: A Team was added to the Repo
 
-    - fact: payload.sender.type
-      operator: notEqual
-      value: Bot
-      description: Prevent loops
-
 event:
   type: teamPermissionMaintainer
   params:

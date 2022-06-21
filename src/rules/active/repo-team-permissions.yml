@@ -20,11 +20,6 @@ conditions:
       value: ^test
       description: Repo name starts with 'test'
 
-    - fact: payload.sender.type
-      operator: notEqual
-      value: Bot
-      description: Prevent loops
-
 event:
   type: repositoryAddTeam
   params:

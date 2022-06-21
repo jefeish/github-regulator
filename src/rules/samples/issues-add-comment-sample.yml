@@ -1,0 +1,15 @@
+--- 
+name: Sample - Add an Issue comment
+description: Add add a comment to an issue when created by a certain user
+priority: 0
+
+conditions:
+  all:
+    - fact: payload.issue.user.login
+      operator: equal
+      value: jefeish
+
+event:
+  type: issuesCreateComment
+  params:
+    comment: Let's play by the Rules... This is a Server Rule!

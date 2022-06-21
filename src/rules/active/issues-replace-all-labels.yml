@@ -1,0 +1,29 @@
+--- 
+name: Replace All Issue Labels
+description: Replace all labels on an issue with new ones, if the title contains a the string 'complete'
+priority: 0
+
+conditions:
+  all:
+    - fact: name
+      operator: equal 
+      value: issue_comment 
+      description: We received an Issue Comment Event
+
+    - fact: payload.action
+      operator: regex 
+      value: edited|created 
+      description: An Issue-Comment was created or edited
+
+    - fact: payload.comment.body
+      operator: includes
+      value: complete
+      description: The issue comment contains 'complete'
+
+event:
+  type: issuesReplaceAllLabels
+  params:
+    labels:
+      - fixed
+      - feature
+ 

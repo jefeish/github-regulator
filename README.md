@@ -1,19 +1,27 @@
+# GitHub Policy App
 
 ![coverage](https://img.shields.io/badge/coverage-4.5%25-red)
 ![release](https://img.shields.io/badge/release-1.2-blue)
 ![ghes](https://img.shields.io/badge/GHES_compliant-v3.5-darkgreen)
 ![ghes](https://img.shields.io/badge/GITHUB_compliant-true-orange)
-# Probot Policy App
 
-A GitHub App to **`automatically apply policies`** such as `Branch Protection`, `Team-Repo Assignment`, etc.
-<br><br>
+A GitHub App to **automatically apply policies** such as `Branch Protection`, `Team-Repo Assignment`, etc.
+
+
+### Policy App Concept
+
 ![overview](./docs/images/Rules-Concept-2.png)
 
-<!-- ![concept](./docs/images/concept.png) -->
+---
+
+### Policy Workflow
+
+![overview](./docs/images/RulesConcept-3.png)
 
 ## Key features
 
 - **Policies are written as Yaml formatted Rules**
+  - `Server-Side` policies are located in [src/rules/active](src/rules/active)
 
 - **We provide a set of default Policy Event-Handler classes** (Tasks)
   - You can find them in, [src/eventHandlers](src/eventHandlers)
@@ -24,7 +32,10 @@ A GitHub App to **`automatically apply policies`** such as `Branch Protection`, 
     - Any template compliant class, that is in the [src/eventHandlers](src/eventHandlers) folder will be "loaded" into the App at start up.
 
 - **Policy association is user defined (based on Rules)**
-  - A readable doc of the rules can be found in, [rules_doc.md](https://github.com/github/probot-policy-app/blob/main/rules-doc.md)
+  - A readable doc of the rules can be found in, the App UI.
+    - Example: http://localhost:3000/policy-App/samples
+
+---
 
 ## Setup
 
@@ -63,6 +74,11 @@ See [installing-github-apps](https://docs.github.com/en/developers/apps/managing
     Where you place your Policies determines their scope, have a look at the diagram.
 
     ![scope](./docs/images/rules-scope.png)
+
+    - **Server-Side** Rules are always located in [`src/rules/active`](src/rules/active),  
+    - **Client-Side** Rules are configured in [`.github/config.yml`](.github/config.yml) 
+
+    Note: The **Client-Side rules 'reload' interval** is configured in [`.github/config.yml`](.github/config.yml) as well
 
 ---
 

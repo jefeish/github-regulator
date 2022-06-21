@@ -1,9 +1,12 @@
 /**
- * @description Event Handler Class to remove a Lable from an Issue
+ * @description Remove specified Labels from an Issue
  * @param 
- *   name
+ * labels: 
+ *   - label_1
+ *   - label_2
  */
 
+const util = require('util')
 const Command = require('./common/command.js')
 let instance = null
 
@@ -25,20 +28,18 @@ class issuesRemoveLabels extends Command {
   }
 
   /**
-   * Utility function
+   * @description Utility function
    * @param {*} Conext 
+   * @return {Promise<Array>}
    */
   async getAllIssueLabels(context, issueNumber) {
-    const listLabels = context.issue(
-      {
-        owner: context.payload.repository.owner.login,
-        repo: context.payload.repository.name,
-        issue_number: issueNumber
-      }
-    )
-
-    const labels = await context.github.issues.listLabelsOnIssue(listLabels)
     let names = []
+    const labels = await context.octokit.issues.listLabelsOnIssue({
+      owner: context.payload.repository.owner.login,
+      repo: context.payload.repository.name,
+      issue_number: issueNumber
+    })
+
     labels.data.forEach(label => {
       names.push(label.name)
     })
@@ -47,34 +48,45 @@ class issuesRemoveLabels extends Command {
   }
 
   /**
-   * 
+   * @description 
    * @param {*} context 
    * @param {*} data 
    */
-  async execute(context, data) {
-    context.log('issuesRemoveLabels.execute()')
+  async execute(context, params) {
+    const labelNames = params.labels
+    context.log.info('issuesRemoveLabels.execute()')
+    context.log.debug('labels: ' + util.inspect(labelNames))
 
-    if (typeof data == 'undefined') {
-      data = []
+    // Check if the event is an Issue-Event
+    if (!context.payload.issue) {
+      context.log.error('issuesRemoveLabels.execute() - Incorrect Event')
+      context.log.error('This Event Handler can only be used with an Issue-Event [issue.created, issue.updated, issue.closed, etc]')
+      return Promise.resolve()
     }
 
-    const labels = await this.getAllIssueLabels(context, context.payload.issue.number)
+    try {
+      if (typeof labelNames !== 'undefined') {
 
-    data.forEach(label => {
-      if (labels.includes(label)) {
-        const issueLabel = context.issue(
-          {
-            owner: context.payload.repository.owner.login,
-            repo: context.payload.repository.name,
-            issue_number: context.payload.issue.number,
-            name: label
+        const labels = await this.getAllIssueLabels(context, context.payload.issue.number)
+
+        labelNames.forEach(label => {
+          if (labels.includes(label)) {
+            context.octokit.issues.removeLabel({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              issue_number: context.payload.issue.number,
+              name: label
+            })
           }
-        )
-        context.github.issues.removeLabel(issueLabel)
-      }
-    })
+        })
 
-    return 200
+        return 200
+      }
+    } catch (err) {
+      context.log.error('issuesRemoveLabels.execute() failed')
+      context.log.error('err: ' + util.inspect(err))
+      return 500
+    }
   }
 }
 

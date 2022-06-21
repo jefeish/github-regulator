@@ -5,13 +5,20 @@ priority: 0
 
 conditions:
   all:
+    - fact: name
+      operator: equal 
+      value: issue 
+      description: We received an Issue Event
+
+    - fact: payload.action
+      operator: equal 
+      value: opened 
+      description: An Issue was opened
+
     - fact: payload.issue.user.login
       operator: equal
       value: jefeish
-    # Prevent loops
-    - fact: payload.sender.type
-      operator: notEqual
-      value: Bot
+
 event:
   type: issuesCreateComment
   params:

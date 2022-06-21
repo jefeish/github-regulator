@@ -1,6 +1,9 @@
 /**
- * @description Event Handler Class to add one or more Labels to an Issue
+ * @description Event Handler Class to assign one or more labels to an Issue
+ *              Note: Please use this with an Issue-Event
  * @param
+ * labels:
+ *   - label
  */
 
 const util = require('util')
@@ -9,7 +12,7 @@ const util = require('util')
 const Command = require('./common/command.js')
 
 class issuesAddLabels extends Command {
-
+    // eslint-disable-next-line no-useless-constructor
     constructor() {
         super()
     }
@@ -20,31 +23,35 @@ class issuesAddLabels extends Command {
     static getInstance() {
         if (!instance) {
             instance = new issuesAddLabels()
-
         }
 
         return instance
     }
 
     execute(context, params) {
+        const labels = params.labels
         context.log.info('issuesAddLabels.execute')
+
+        // Check if the event is an Issue-Event
+        if (!context.payload.issue) {
+            context.log.error('issuesAddAssignees.execute() - Incorrect Event')
+            context.log.error('This Event Handler can only be used with an Issue-Event [issue.created, issue.updated, issue.closed, etc]')
+            return Promise.resolve()
+        }
+
         try {
-            if (typeof params == 'undefined') {
-                params = ''
-            }
-            context.log.debug('params: ' + util.inspect(params))
+            if (typeof labels !== 'undefined') {
 
-            if (params.length > 0) {
-                const issueLabels = context.issue(
-                    {
-                        owner: context.payload.repository.owner.login,
-                        repo: context.payload.repository.name,
-                        issue_number: context.payload.issue.number,
-                        labels: bug
-                    }
-                )
+                context.log.debug('labels: ' + util.inspect(labels))
 
-                return context.github.issues.addLabels(issueLabels)
+                const issueLabels = context.octokit.issues.addLabels(
+                {
+                    owner: context.payload.repository.owner.login,
+                    repo: context.payload.repository.name,
+                    issue_number: context.payload.issue.number,
+                    labels: labels
+                })
+                return issueLabels
             }
             else {
                 context.log.info('No labels to add')
@@ -57,4 +64,5 @@ class issuesAddLabels extends Command {
         }
     }
 }
+
 module.exports = issuesAddLabels
