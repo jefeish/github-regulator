@@ -15,11 +15,6 @@ conditions:
     value: edited 
     description: Team-Repo permissions where changed
 
-  - fact: payload.sender.type
-    operator: notEqual
-    value: Bot
-    description: Prevent loops
-
 event:
   type: teamPermissionMaintainer
   params:

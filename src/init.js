@@ -14,7 +14,7 @@ const path_module = require('path');
  * | @param app
  */
 exports.registerEventHandlers = app => {
-  app.log('registerEventHandlers')
+  app.log.info('registerEventHandlers')
 
   try {
     const fileContents = fs.readFileSync('./src/eventHandlers.yml', 'utf8')

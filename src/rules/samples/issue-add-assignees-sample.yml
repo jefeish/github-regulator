@@ -1,0 +1,23 @@
+--- 
+name: Sample - Add assignees to an Issue
+description: Adding one or more assignees (users) to an issue. Assignees must have Repo access permissions.
+priority: 0
+
+conditions:
+  all:
+  - fact: name
+    operator: equal 
+    value: issues 
+    description: We received an 'Issue Event'
+
+  - fact: payload.action 
+    operator: equal 
+    value: opened 
+    description: an Issue was opened
+
+
+event:
+  type: issuesAddAssignees
+  params:
+    assignees:
+      - jefeish

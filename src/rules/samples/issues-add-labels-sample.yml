@@ -1,0 +1,29 @@
+--- 
+name: Sample - Add Issue Labels
+description: Add one or more labels to an issue, if the title contains a certain string
+priority: 0
+
+conditions:
+  all:
+    - fact: name
+      operator: equal 
+      value: issues 
+      description: We received an 'Issue Event'
+
+    - fact: payload.action 
+      operator: equal 
+      value: opened 
+      description: An Issue was opened
+
+    - fact: payload.issue.title
+      operator: includes
+      value: bug
+      description: The issue title contains 'bug'
+
+event:
+  type: issuesAddLabels
+  params:
+    labels:
+      - bug
+      - question
+ 

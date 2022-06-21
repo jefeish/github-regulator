@@ -1,0 +1,31 @@
+--- 
+name: Sample - Remove Issue Labels
+description: Remove a list of labels from an issue, triggered by an Issue Comment (Issue-Ops)
+priority: 0
+
+conditions:
+  all:
+    - fact: name
+      operator: equal 
+      value: issue_comment 
+      description: We received an Issue Comment Event
+
+    - fact: payload.action
+      operator: regex 
+      value: edited|created 
+      description: An Issue-Comment was created or edited
+
+    - fact: payload.comment.body
+      operator: includes
+      value: cleanup
+      description: The issue comment contains 'cleanup'
+
+event:
+  type: issuesRemoveLabels
+  params:
+    labels: 
+      - question
+      - bug
+
+
+ 
