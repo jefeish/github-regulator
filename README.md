@@ -22,6 +22,7 @@ A GitHub App to **automatically apply policies** such as `Branch Protection`, `T
 
 - **Policies are written as Yaml formatted Rules**
   - `Server-Side` policies are located in [src/rules/active](src/rules/active)
+  - `Client-Side` policies location is set in [.github/config.yml](.github/config.yml) 
 
 - **We provide a set of default Policy Event-Handler classes** (Tasks)
   - You can find them in, [src/eventHandlers](src/eventHandlers)
@@ -34,6 +35,41 @@ A GitHub App to **automatically apply policies** such as `Branch Protection`, `T
 - **Policy association is user defined (based on Rules)**
   - A readable doc of the rules can be found in, the App UI.
     - Example: http://localhost:3000/policy-App/samples
+
+---
+
+## Developer Notes
+
+The concept of the Policy-App is to **decouple** `conditions`=`policies`=`rules`, from business logic code, `handlers`.
+
+### Types of Handlers
+
+In general there are three main types of handlers
+
+- **Generic:** Handler code is event context agnostic. Usable with any Policy.
+- **Event Dependent:** Handler code relies on specific event context data.
+- **Policy Dependent:** Handler code represents a specific Policy, limited flexibility.
+
+> The `Generic` type is the most reusable type of handler
+
+> The `Event Dependent` type might be the most common
+
+> The `Policy Dependent` type 'hard-codes' Policy logic in the Handler. This 'breaks' the decoupling of the **Policies** and the **Handlers** but might be required to choose this in some cases.
+
+### Event Handlers Require Specific Event Data
+
+Event-handlers receive the context of a GitHub event and can use that data for their business logic. (*Event Dependent*)
+
+:warning: When you write rules that invoke the Event-handler with the 'wrong' event context, some context data points might not be available and your code fails.
+
+#### For Example
+
+Invoking an Event-handler that works with Issue-Event context data, based on a Repo-event (create.repo), your Event-handler will not get the event data point (issue.id) it needs to function properly.
+
+You need to consider two things:
+
+1. Make sure the Event-handler contains some check that it received the right Event context.
+2. Write Rules that only call Event-handlers with the correct Event context.
 
 ---
 

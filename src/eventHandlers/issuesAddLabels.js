@@ -34,7 +34,7 @@ class issuesAddLabels extends Command {
 
         // Check if the event is an Issue-Event
         if (!context.payload.issue) {
-            context.log.error('issuesAddAssignees.execute() - Incorrect Event')
+            context.log.error('issuesAddLabels.execute() - Incorrect Event')
             context.log.error('This Event Handler can only be used with an Issue-Event [issue.created, issue.updated, issue.closed, etc]')
             return Promise.resolve()
         }
