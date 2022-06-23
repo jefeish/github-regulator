@@ -164,6 +164,20 @@ If you have suggestions for how probot-policy-app could be improved, or want to 
 
 For more, check out the [Contributing Guide](CONTRIBUTING.md).
 
+## Apendix
+
+- [**GitHub REST API Docs**](https://docs.github.com/en/rest)
+
+  - [**GitHub REST API (Octokit) Docs**](https://octokit.github.io/rest.js/v18)
+
+- [**GitHub GraphQL API Docs**](https://docs.github.com/en/graphql)
+
+  - [**GitHub GraphQL API Samples**](https://github.com/octokit/graphql.js)
+
+- [**GitHub Webhook-Events**](https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads)
+
+- [**JSON Rules Engine**](https://github.com/CacheControl/json-rules-engine)
+
 ## License
 
 [ISC](LICENSE) © 2021 Jürgen Efeish <jefeish@github.com>

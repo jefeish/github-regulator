@@ -124,13 +124,20 @@ class repositoryBranchProtection extends Command {
     context.log.info(' \'repositoryBranchProtection.execute()\'')
     context.log.debug(`\nAdding Branch Protection:\n    repository.owner: ${context.payload.repository.owner.login} \n    repository.name: ${context.payload.repository.name}\n    repository.default_branch: ${context.payload.repository.default_branch}\n    params: ${util.inspect(params)}`)
 
+    // Check if the event is a Repo-Event
+    if (!context.payload.repository) {
+      context.log.error('issuesAddLabels.execute() - Incorrect Event')
+      context.log.error('This Event Handler can only be used with an Issue-Event [issue.created, issue.updated, issue.closed, etc]')
+      return Promise.resolve()
+    }
+
     const branch_name = params.branch_name || context.payload.repository.default_branch
     const overwrite = params.overwrite || true
 
     if (typeof params.rules === 'undefined') {
       context.log.error(' \'repositoryBranchProtection\' did not receive the correct \'parameters\'')
       context.log.debug(' params:' + util.inspect(params))
-      return 1
+      return 500
     }
 
     // Branch Protection Rules (GH version 3.4)
@@ -344,7 +351,7 @@ class repositoryBranchProtection extends Command {
       return 500
     }
 
-    return response
+    return 200
   }
 }
 
