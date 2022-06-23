@@ -3,7 +3,7 @@
  * @param
  * # If the `branch_name` is omitted, the name of the default branch will be used.
  * branch_name: feature*
- * # If set to 'true', this will replace an existing branch protection.
+ * # If set to 'false', this will not replace an existing branch protection. Default is 'true'
  * overwrite: true
  * # The branch protection settings to apply.
  * rules:
