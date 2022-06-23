@@ -7,10 +7,26 @@
 
 A GitHub App to **automatically apply policies** such as `Branch Protection`, `Team-Repo Assignment`, etc.
 
+## Policy Definition
+
+**Wikipedia:** 
+*"...A policy is a statement of intent and is implemented as a procedure or protocol."*
+
+With that in mind, we are trying to manage the state/configuration of a system (**`GitHub`**), based on certain conditions/rules (**`Policies`**).
+
+---
 
 ### Policy App Concept
 
 ![overview](./docs/images/Rules-Concept-2.png)
+
+#### TL;DR
+
+- GitHub Events are send to the Policy App
+- The Event-Context gets translated to Rules-Engine Facts
+- The Rules-Engine applies Policies, evaluating all conditions against the Facts
+- If all Policy conditions "pass", the Event-Context is send to the Handler
+- The Handler can use the full context data to apply the required Policy
 
 ---
 
@@ -21,8 +37,8 @@ A GitHub App to **automatically apply policies** such as `Branch Protection`, `T
 ## Key features
 
 - **Policies are written as Yaml formatted Rules**
-  - `Server-Side` policies are located in [src/rules/active](src/rules/active)
-  - `Client-Side` policies location is set in [.github/config.yml](.github/config.yml) 
+  - The `Server-Side` policies are located in [src/rules/active](src/rules/active)
+  - The `Client-Side` policies location is set in [.github/config.yml](.github/config.yml)
 
 - **We provide a set of default Policy Event-Handler classes** (Tasks)
   - You can find them in, [src/eventHandlers](src/eventHandlers)
@@ -35,6 +51,8 @@ A GitHub App to **automatically apply policies** such as `Branch Protection`, `T
 - **Policy association is user defined (based on Rules)**
   - A readable doc of the rules can be found in, the App UI.
     - Example: http://localhost:3000/policy-App/samples
+
+**Note:** Keep in mind that **an App Reacts on Events, it cannot prevent User-Actions.** The prevention is what the Policies can provide via configuration settings.
 
 ---
 
@@ -54,9 +72,9 @@ In general there are three main types of handlers
 
 > The `Event Dependent` type might be the most common
 
-> The `Policy Dependent` type 'hard-codes' Policy logic in the Handler. This 'breaks' the decoupling of the **Policies** and the **Handlers** but might be required to choose this in some cases.
+> The `Policy Dependent` type 'hard-codes' Policy logic in the Handler. This 'breaks' the decoupling of the **Policies** and the **Handlers** but might be required choice in some cases.
 
-### Event Handlers Require Specific Event Data
+### Event Handlers That Require Specific Event Data
 
 Event-handlers receive the context of a GitHub event and can use that data for their business logic. (*Event Dependent*)
 
@@ -64,7 +82,7 @@ Event-handlers receive the context of a GitHub event and can use that data for t
 
 #### For Example
 
-Invoking an Event-handler that works with Issue-Event context data, based on a Repo-event (create.repo), your Event-handler will not get the event data point (issue.id) it needs to function properly.
+You have an Event-handler that works with Issue-Event context data, when you invoke it with a Repo-event (eg.: create.repo), your Event-handler will not get the event data point (eg.: issue.id) it needs to function properly.
 
 You need to consider two things:
 
@@ -150,5 +168,5 @@ For more, check out the [Contributing Guide](CONTRIBUTING.md).
 
 [ISC](LICENSE) © 2021 Jürgen Efeish <jefeish@github.com>
 
-=======
-APP to apply some basic policies
+---
+---

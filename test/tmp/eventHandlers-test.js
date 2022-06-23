@@ -2,12 +2,10 @@ const eventHandlerTemplate = require('../../src/eventHandlers/eventHandlerTempla
 const issueAddAssignees = require('../../src/eventHandlers/issuesAddAssignees');
 const issueAddLabels = require('../../src/eventHandlers/issuesAddLabels');
 const issueCreateComment = require('../../src/eventHandlers/issuesCreateComment');
-const issueReplaceLabel = require('../../src/eventHandlers/issueReplaceLabel');
+const issueReplaceLabel = require('../../src/eventHandlers/issuesReplaceLabel');
 const issueRemoveLabels = require('../../src/eventHandlers/issuesRemoveLabels');
 const issueReplaceAllLabels = require('../../src/eventHandlers/issuesReplaceAllLabels');
 const repositoryAddTeam = require('../../src/eventHandlers/repositoryAddTeam');
-const repositoryAssignTeam = require('../../src/eventHandlers/repositoryAssignTeam');
-const repositoryAssignTeamChildren = require('../../src/eventHandlers/repositoryAssignTeamChildren');
 const repositoryBranchProtection = require('../../src/eventHandlers/repositoryBranchProtection');
 
 const rulesEngineHandler = require('../../src/eventHandlers/rulesEngineHandler');

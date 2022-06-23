@@ -12,21 +12,9 @@
     "debug": "node --nolazy ./src/index.js",
     "start": "probot run ./src/index.js",
     "test": "jest",
+    "quality": "npm run jslint",
     "test:watch": "npm run test -- --watchAll"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jefeish/policy-app.git"
-  },
-  "keywords": [
-    "policy"
-  ],
-  "author": "jefeish",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jefeish/policy-app/issues"
-  },
-  "homepage": "https://github.com/jefeish/policy-app#readme",
   "jest": {
     "testRegex": "(test/.*(test)\\.js)",
     "collectCoverage": true,
@@ -45,6 +33,19 @@
       }
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefeish/policy-app.git"
+  },
+  "keywords": [
+    "policy"
+  ],
+  "author": "jefeish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jefeish/policy-app/issues"
+  },
+  "homepage": "https://github.com/jefeish/policy-app#readme",
   "engines": {
     "node": ">= 10.13.0"
   },
@@ -65,6 +66,8 @@
     "hash-it": "^4.0.5",
     "jquery": "^1.12.4",
     "js-yaml": "^3.14.0",
+    "jshint": "^2.13.4",
+    "jslint": "^0.12.1",
     "json-rules-engine": "^5.0.4",
     "jsonpath-plus": "^4.0.0",
     "lodash.isobjectlike": "^4.0.0",
