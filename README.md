@@ -9,7 +9,7 @@ A GitHub App to **automatically apply policies** such as `Branch Protection`, `T
 
 ## Policy Definition
 
-**Wikipedia:** 
+**Wikipedia:**
 *"...A policy is a statement of intent and is implemented as a procedure or protocol."*
 
 With that in mind, we are trying to manage the state/configuration of a system (**`GitHub`**), based on certain conditions/rules (**`Policies`**).
