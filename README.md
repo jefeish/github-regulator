@@ -116,7 +116,6 @@ See [installing-github-apps](https://docs.github.com/en/developers/apps/managing
   #  
   # Note: Any incoming event gets evaluated against 'Server-side and 'Client-side' rules!
 
-
   # Options: `Repo name` or `.` 
   rules_repo: policies
 
