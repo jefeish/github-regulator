@@ -118,7 +118,7 @@ See [installing-github-apps](https://docs.github.com/en/developers/apps/managing
 
 
   # Options: `Repo name` or `.` 
-  rules_repo: rules-repo
+  rules_repo: policies
 
   # This is a "Lazy Refresh". We only check on an incoming event, if the interval expired.
   # The reload interval for client-side rules, in minutes.
