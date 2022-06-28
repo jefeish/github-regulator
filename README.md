@@ -5,7 +5,9 @@
 ![ghes](https://img.shields.io/badge/GHES_compliant-v3.5-darkgreen)
 ![ghes](https://img.shields.io/badge/GITHUB_compliant-true-orange)
 
-A GitHub App to **automatically apply policies** such as `Branch Protection`, `Team-Repo Assignment`, etc. [GH-Pages](https://jefeish.github.io/policy-app/)
+A GitHub App to **automatically apply policies** such as `Branch Protection`, `Team-Repo Assignment`, etc. 
+
+([GH-Pages](https://jefeish.github.io/policy-app/))
 
 ## Policy Definition
 
