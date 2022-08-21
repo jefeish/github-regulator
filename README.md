@@ -132,7 +132,7 @@ See [installing-github-apps](https://docs.github.com/en/developers/apps/managing
 
     ![scope](./docs/images/rules-scope.png)
 
-    - **Server-Side** Rules are always located in [`src/rules/active`](src/rules/active),  
+    - **Server-Side** Rules are always located in [`src/rules/active`](src/rules/active) of the App installation,  
     - **Client-Side** Rules are configured in [`.github/config.yml`](.github/config.yml) 
 
     Note: The **Client-Side rules 'reload' interval** is configured in [`.github/config.yml`](.github/config.yml) as well
