@@ -35,12 +35,12 @@ class eventHandlerTemplate extends Command {
    * @param {*} context 
    * @param {*} data 
    */
-  execute(context, data) {
+  execute(context, params) {
 
     try {
 
-      if (typeof data == 'undefined') {
-        data = 'NA'
+      if (typeof params == 'undefined') {
+        params = 'NA'
       }
 
       // THIS IS A SAMPLE GITHUB REST API CALL
