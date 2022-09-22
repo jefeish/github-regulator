@@ -7,7 +7,7 @@
 
 A GitHub App to **automatically apply policies** such as `Branch Protection`, `Team-Repo Assignment`, etc. 
 
-***This solution allows you to create/implement your own custom Policies and apply them via your own conditions, making the functionality and behavior of App very flexible and reusable.***
+***This solution allows you to create/implement your own custom Policies and apply them via your own conditions, making the functionality and behavior of the App flexible and reusable.***
 
 ([GH-Pages](https://jefeish.github.io/policy-app/))
 
