@@ -1,4 +1,4 @@
-# GitHub Policy App
+# GitHub Regulator App
 
 ![coverage](https://img.shields.io/badge/coverage-4.5%25-red)
 ![release](https://img.shields.io/badge/release-1.2-blue)
