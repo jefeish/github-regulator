@@ -1,0 +1,32 @@
+--- 
+name: Send a message to the Event issuer 
+description: Overwrite a labels of an issue, triggered by an Issue Comment (Issue-Ops)
+priority: 0
+
+conditions:
+  all:
+    - fact: name
+      operator: equal 
+      value: issue_comment 
+      description: We received an Issue Comment Event
+
+    - fact: payload.action
+      operator: regex 
+      value: edited|created 
+      description: An Issue-Comment was created or edited
+
+    - fact: payload.comment.body
+      operator: includes
+      value: email
+      description: The issue comment contains 'email'
+
+event:
+  type: emailToRequester
+  params:
+    # sender: <optional>
+    recipients:
+      - jefeish@github.com
+    subject: a test message
+    message: Hello from your messenger
+
+ 

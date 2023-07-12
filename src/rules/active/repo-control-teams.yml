@@ -1,0 +1,21 @@
+--- 
+name: Control Team-Repo assignemnts
+description: Control Team-Repo assignemnt only to users that are part of the assigned team
+priority: 0
+
+conditions:
+  all:
+  - fact: name
+    operator: equal 
+    value: team
+    description: We received a 'Team Event'
+
+  - fact: payload.action 
+    operator: equal 
+    value: added_to_repository 
+    description: A Team was assigned to the Repository
+
+event:
+  type: teamPermissionController
+  params:
+ 
