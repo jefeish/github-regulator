@@ -418,9 +418,15 @@ class rulesEngineHandler extends Command {
           .run(facts, { cache: false })
           .then(results => {
             results.events.map(event => {
-              context.log.info('Routing to handler class: ' + event.type + '(' + context + ',' + event.params + ')')
-              const m = new handlerMap[event.type]()
-              m.execute(context, event.params)
+              context.log.info('event: ' + util.inspect(event))
+              context.log.info('event.params: ' + util.inspect(event.params))
+              context.log.info('event.params.handlers[0]: ' + util.inspect(event.params.handlers[0]))
+              event.params.handlers.forEach(handler => {
+                context.log.info('Routing to handler class: ' + handler.name + '(' + context + ',' + handler.params + ')')
+                // the 'handlerMap' contains all the 'eventHandler' classes
+                const m = new handlerMap[handler.name]()
+                m.execute(context, handler.data)
+              })
             })
           })
           .catch(function (err) {

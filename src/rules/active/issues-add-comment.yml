@@ -7,7 +7,7 @@ conditions:
   all:
     - fact: name
       operator: equal 
-      value: issue 
+      value: issues
       description: We received an Issue Event
 
     - fact: payload.action
@@ -18,8 +18,35 @@ conditions:
     - fact: payload.issue.user.login
       operator: equal
       value: jefeish
+      description: An Issue was opened by jefeish
 
 event:
-  type: issuesCreateComment
+  type: apply multiple handlers
   params:
-    comment: Let's play by the Rules... This is a Server Rule!
+    handlers:
+      - name: issuesCreateComment
+        data:
+          comment: This is a Server-Side Rule!
+
+      - name: issuesCreateComment
+        data:
+          comment: another ...This is a Server-Side Rule!
+
+      - name: issuesAddLabels
+        data:
+          labels:
+            - bug
+            - question
+            
+      - name: issuesAddAssignees
+        data:
+          assignees: 
+            - jefeish
+
+      - name: emailToRequester
+        data:
+          # sender: <optional>
+          recipients:
+            - jefeish@github.com
+          subject: a test message
+          message: Hello from your messenger

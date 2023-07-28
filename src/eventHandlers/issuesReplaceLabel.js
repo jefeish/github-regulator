@@ -1,5 +1,5 @@
 /**
- * @description Override an issue label with another one, keep other all labels
+ * @description Override an issue label with another one, keep all other labels
  * @param 
  * oldLabel: old_label
  * newLabel: new_label

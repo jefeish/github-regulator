@@ -34,6 +34,7 @@ class issuesCreateComment extends Command {
   execute(context, params) {
     context.log.info('createIssueComment.execute()')
     const comment = params.comment
+    context.log.debug('params: ' + util.inspect(params))
     context.log.debug('comment: ' + comment)
 
     // Check if the event is an Issue-Event

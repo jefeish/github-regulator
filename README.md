@@ -1,38 +1,52 @@
-# GitHub Policy App
+# GitHub Regulator App
 
 ![coverage](https://img.shields.io/badge/coverage-4.5%25-red)
 ![release](https://img.shields.io/badge/release-1.2-blue)
 ![ghes](https://img.shields.io/badge/GHES_compliant-v3.5-darkgreen)
 ![ghes](https://img.shields.io/badge/GITHUB_compliant-true-orange)
 
-A GitHub App to **automatically apply policies** such as `Branch Protection`, `Team-Repo Assignment`, etc.
+A GitHub App to **apply regulations based on Rules & Handlers**.
 
-## Policy Definition
+The GitHub Regulator App is a compliance tool designed to enforce regulations using user-defined Rules and Handlers.
 
-**Wikipedia:**
-*"...A policy is a statement of intent and is implemented as a procedure or protocol."*
+- Rules have the power to access the full context of an event, enabling the creation of intricate compliance conditions.
+- Handlers are triggered based on conditions defined in the Rules. The app's behavior is entirely determined by the Rules, independent of the underlying code.
 
-With that in mind, we are trying to manage the state/configuration of a system (**`GitHub`**), based on certain conditions/rules (**`Policies`**).
+App behavior is fully Rules based and decoupled from application logic, making the it highly adaptable and reusable.
 
----
-
-### Policy App Concept
-
-![overview](./docs/images/Rules-Concept-2.png)
-
-#### TL;DR
-
-- GitHub Events are send to the Policy App
-- The Event-Context gets translated to Rules-Engine Facts
-- The Rules-Engine applies Policies, evaluating all conditions against the Facts
-- If all Policy conditions "pass", the Event-Context is send to the Handler
-- The Handler can use the full context data to apply the required Policy
+>***Regulator***
+>
+>*A regulator is an entity or organization responsible for setting and enforcing rules, regulations, and standards within a specific domain or industry. The primary purpose of regulators is to ensure compliance with established guidelines*
 
 ---
 
-### Policy Workflow
+### Regulator App Concept
 
-![overview](./docs/images/RulesConcept-3.png)
+![overview](./docs/images/concept-flow.png)
+
+<details><summary><h2>Advanced Docs</h2></summary>
+<p>
+
+### Processing Workflow
+
+![process](./docs/images/RulesConcept-2.png)
+
+
+#### Flow Explanation
+
+1. GitHub Events are send to the Regulator App
+1. The Event-Context gets translated to Rules-Engine Facts
+1. The Rules-Engine applies Rules and evaluates all conditions against the Facts
+1. If all Rule conditions "pass", the Event-Context is send to a Handler (specified in the Rule)
+1. The Handler can use the full context data to apply the required Policy
+
+---
+
+### Event to Handler Mapping
+
+Some details on how Events, Rules and Handlers can be mapped to define and apply a regulation.
+
+![mapping](./docs/images/RulesConcept-3.png)
 
 ## Key features
 
@@ -40,25 +54,25 @@ With that in mind, we are trying to manage the state/configuration of a system (
   - The `Server-Side` policies are located in [src/rules/active](src/rules/active)
   - The `Client-Side` policies location is set in [.github/config.yml](.github/config.yml)
 
-- **We provide a set of default Policy Event-Handler classes** (Tasks)
-  - You can find them in, [src/eventHandlers](src/eventHandlers)
+- **We provide a set of default Event-Handler classes** (Tasks)
+  - Located in, [src/eventHandlers](src/eventHandlers)
 
-- **Users can write custom Policy Event-Handler classes**
+- **Users can write custom Event-Handler classes**
   - Create custom features for your Policies
     - Add a custom `eventHandler` class that is compliant with the [class template eventHandlerTemplate.js](src/eventHandlers/eventHandlerTemplate.js)
     - Any template compliant class, that is in the [src/eventHandlers](src/eventHandlers) folder will be "loaded" into the App at start up.
 
-- **Policy association is user defined (based on Rules)**
+- **Rules association is user defined**
   - A readable doc of the rules can be found in, the App UI.
     - Example: http://localhost:3000/policy-App/samples
 
-**Note:** Keep in mind that **an App Reacts on Events, it cannot prevent User-Actions.** The prevention is what the Policies can provide via configuration settings.
+>**Note:** Keep in mind that **Apps React on Events**, they **do not prevent** user actions. We can only **Dectect** & **Correct** !
 
 ---
 
 ## Developer Notes
 
-The concept of the Policy-App is to **decouple** `conditions`=`policies`=`rules`, from business logic code, `handlers`.
+The concept of the Regulator-App is to **decouple** `conditions`, from business logic code, `handlers`.
 
 ### Types of Handlers
 
@@ -72,7 +86,7 @@ In general there are three main types of handlers
 
 > The `Event Dependent` type might be the most common
 
-> The `Policy Dependent` type 'hard-codes' Policy logic in the Handler. This 'breaks' the decoupling of the **Policies** and the **Handlers** but might be required choice in some cases.
+> The `Policy Dependent` type 'hard-codes' Policy logic in the Handler. This 'breaks' the decoupling of the **Policies** and the **Handlers** but might be the necessary choice for some cases.
 
 ### Event Handlers That Require Specific Event Data
 
@@ -91,6 +105,9 @@ You need to consider two things:
 
 ---
 
+</p>
+</details> 
+
 ## Setup
 
 ### Register the App
@@ -99,7 +116,7 @@ See [installing-github-apps](https://docs.github.com/en/developers/apps/managing
 
 ### Configure the App (Application Host)
 
-- Configure your App settings in [config.yml](https://github.com/github/probot-policy-app/blob/main/.github/config.yml)
+- Configure your App settings in [.github/config.yml](https://github.com/github/probot-policy-app/blob/main/.github/config.yml)
 
   **Sample**
 
@@ -123,16 +140,18 @@ See [installing-github-apps](https://docs.github.com/en/developers/apps/managing
   rules_refreshInterval: 1
   ```
 
- - **App configuration and Policy (Rules) setup are closely related**
+ - **There are 3 types of Rules locations**
 
-    Where you place your Policies determines their scope, have a look at the diagram.
+    The location your Rules folder determines the scope and control of the Rules.
 
-    ![scope](./docs/images/rules-scope.png)
+    |||
+    |---|---|
+    |**Server-Side**| Rules are always located in the App folder [`src/rules/active`](src/rules/active),  
+    |**Centralized Client-Side**| Rules are configured in a Rules Repository in [`.github/config.yml`](.github/config.yml) 
+    |**Local Client-Side**| Rules are configured in the Repo that triggered the event in [`.github/config.yml`](.github/config.yml) 
 
-    - **Server-Side** Rules are always located in [`src/rules/active`](src/rules/active),  
-    - **Client-Side** Rules are configured in [`.github/config.yml`](.github/config.yml) 
 
-    Note: The **Client-Side rules 'reload' interval** is configured in [`.github/config.yml`](.github/config.yml) as well
+ >Note: The **Server-Side** Rules are controlled be the App Owner and will be loaded & evaluated regardless of `config.yml` **rules_repo** settings.
 
 ---
 
@@ -142,7 +161,7 @@ See [installing-github-apps](https://docs.github.com/en/developers/apps/managing
 npm install
 ```
 
-## Run the bot
+## Run the App
 
 ```bash
 npm start
@@ -157,6 +176,8 @@ docker build -t probot-policy-app .
 # 2. Start container
 docker run -e APP_ID=<app-id> -e PRIVATE_KEY=<pem-value> probot-policy-app
 ```
+
+
 
 ## Contributing
 
