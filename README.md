@@ -12,7 +12,7 @@ The GitHub Regulator App is a compliance tool designed to enforce regulations us
 - Rules have the power to access the full context of an event, enabling the creation of intricate compliance conditions.
 - Handlers are triggered based on conditions defined in the Rules. The app's behavior is entirely determined by the Rules, independent of the underlying code.
 
-App behavior is fully Rules based and decoupled from application logic, making the it highly adaptable and reusable.
+App behavior is fully Rules based and decoupled from application logic, making it highly adaptable and reusable.
 
 >***Regulator***
 >
@@ -142,7 +142,7 @@ See [installing-github-apps](https://docs.github.com/en/developers/apps/managing
 
  - **There are 3 types of Rules locations**
 
-    The location your Rules folder determines the scope and control of the Rules.
+    The location of your Rules folder determines the scope and control of the Rules.
 
     |||
     |---|---|
