@@ -14,6 +14,8 @@ The GitHub Regulator App is a compliance tool designed to enforce regulations us
 
 App behavior is fully Rules based and decoupled from application logic, making it highly adaptable and reusable.
 
+---
+
 >***Regulator***
 >
 >*A regulator is an entity or organization responsible for setting and enforcing rules, regulations, and standards within a specific domain or industry. The primary purpose of regulators is to ensure compliance with established guidelines*
