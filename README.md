@@ -9,7 +9,7 @@ A GitHub App to **automatically apply policies** such as `Branch Protection`, `T
 
 ***This solution allows you to create/implement your own custom Policies and apply them via your own conditions, making the functionality and behavior of the App flexible and reusable.***
 
-([GH-Pages](https://jefeish.github.io/policy-app/))
+([GH-Pages](https://jefeish.github.io/github-regulator/))
 
 ## Policy Definition
 
