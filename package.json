@@ -1,5 +1,5 @@
 {
-  "name": "policy-app",
+  "name": "regulator-app",
   "version": "1.0.0",
   "description": "![coverage](https://img.shields.io/badge/coverage-4.5%25-red) ![release](https://img.shields.io/badge/release-1.2-blue) ![ghes](https://img.shields.io/badge/GHES_compliant-v3.5-darkgreen) ![ghes](https://img.shields.io/badge/GITHUB_compliant-true-orange) # Probot Policy App",
   "main": "src/index.js",
