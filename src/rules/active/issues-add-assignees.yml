@@ -1,0 +1,28 @@
+--- 
+name: Add assignees to an Issue
+description: Add add a comment to an issue when created by a certain user
+priority: 0
+
+conditions:
+  all:
+    - fact: name
+      operator: equal 
+      value: issues
+      description: We received an Issue Event
+
+    - fact: payload.action
+      operator: equal 
+      value: opened 
+      description: An Issue was created
+
+    - fact: payload.issue.title
+      operator: includes
+      value: bug
+      description: The issue title contains 'bug'
+
+event:
+  type: issuesAddAssignees
+  params:
+    assignees: 
+      - jefeish
+      - jester01248

@@ -1,6 +1,6 @@
 ---
 name: Branch protection Policy for 'main' branch
-description: A policy to set branch protection rules at Repo/Branch creation
+description: Set branch protection rules at Repo/Branch creation
 priority: 1
 
 conditions:

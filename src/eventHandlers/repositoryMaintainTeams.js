@@ -9,7 +9,7 @@ const Command = require('./common/command.js')
 let instance = null
 
 
-class teamPermissionMaintainer extends Command {
+class repositoryMaintainTeams extends Command {
 
   // eslint-disable-next-line no-useless-constructor
   constructor() {
@@ -21,7 +21,7 @@ class teamPermissionMaintainer extends Command {
    */
   static getInstance() {
     if (!instance) {
-      instance = new teamPermissionMaintainer()
+      instance = new repositoryMaintainTeams()
     }
 
     return instance
@@ -35,7 +35,7 @@ class teamPermissionMaintainer extends Command {
    */
   async execute(context, data) {
 
-    context.log.info('teamPermissionMaintainer.execute')
+    context.log.info('repositoryMaintainTeams.execute')
     
     // pull - team members can pull, but not push to or administer this repository.
     // push - team members can pull and push, but not administer this repository.
@@ -81,4 +81,4 @@ class teamPermissionMaintainer extends Command {
   }
 }
 
-module.exports = teamPermissionMaintainer
+module.exports = repositoryMaintainTeams

@@ -7,13 +7,13 @@ conditions:
   all:
     - fact: name
       operator: equal 
-      value: issue_comment 
+      value: issues
       description: We received an Issue Event
 
     - fact: payload.action
       operator: equal 
-      value: created 
-      description: An Issue comment was created
+      value: opened 
+      description: An Issue was created
 
     - fact: payload.issue.user.login
       operator: equal
@@ -22,4 +22,4 @@ conditions:
 event:
   type: issuesCreateComment
   params:
-    comment: Let's play by the Rules... This is a Server Rule!
+    comment: another comment...

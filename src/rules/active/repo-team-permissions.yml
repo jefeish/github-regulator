@@ -1,6 +1,6 @@
 ---
 name: Repository Team Permission
-description: A policy to assign Team(s) with permission to a Repo
+description: Assign Team(s) to a Repo with permission
 priority: 1
 
 conditions:
@@ -17,11 +17,11 @@ conditions:
 
     - fact: payload.repository.name
       operator: regex
-      value: ^test
-      description: Repo name starts with 'test'
+      value: ^rules
+      description: Repo name starts with 'rules'
 
 event:
-  type: repositoryAddTeam
+  type: repositoryAddTeams
   params:
     teams:
       - name: B-Team

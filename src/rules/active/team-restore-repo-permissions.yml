@@ -16,6 +16,7 @@ conditions:
     description: Team-Repo permissions where changed
 
 event:
-  type: teamPermissionMaintainer
+  type: repositoryMaintainTeams
   params:
+    # no params required
  

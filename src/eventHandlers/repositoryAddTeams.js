@@ -2,17 +2,23 @@
  * @description Event Handler Class to add a Team to a Repository
  * @param
  * teams:
+ *   - name: A-Team
+ *     permission: admin
  *   - name: B-Team
- *     permission: write
+ *     permission: triage
+ *   - name: C-Team
+ *     permission: maintain
+ *   - name: D-Team
+ *     permission: push
  *   - name: foo
- *     permission: read
+ *     permission: pull
  */
 
 const Command = require('./common/command.js')
 const util = require('util')
 let instance = null
 
-class repositoryAddTeam extends Command {
+class repositoryAddTeams extends Command {
 
   // eslint-disable-next-line no-useless-constructor
   constructor() {
@@ -24,7 +30,7 @@ class repositoryAddTeam extends Command {
    */
   static getInstance() {
     if (!instance) {
-      instance = new repositoryAddTeam()
+      instance = new repositoryAddTeams()
     }
 
     return instance
@@ -38,15 +44,24 @@ class repositoryAddTeam extends Command {
    */
   async execute(context, params) {
 
+    context.log.info('repositoryAddTeams.execute()')
     context.log.trace('context: ', context)
     context.log.trace('params: ', params)
+    context.log.info('info 1')
+
+    // Check if the event is a Repo-Event
+    if (!context.payload.repository) {
+      context.log.error('repositoryAddTeams.execute() - Incorrect Event')
+      context.log.error('This Event Handler can only be used with an Repo-Event [issue.created, issue.updated, issue.closed, etc]')
+      return null
+    }
 
     try {
       if (typeof params == 'undefined') {
-        context.log('error: Incorrect parameters [' + params + ']')
+        context.log('error: Incorrect or missing parameters [' + params + ']')
         return 1
       }
-
+      context.log.info('info 2')
       const teams = params.teams
   
       for (let i = 0; i < teams.length; i++) {
@@ -77,4 +92,4 @@ class repositoryAddTeam extends Command {
   }
 }
 
-module.exports = repositoryAddTeam
+module.exports = repositoryAddTeams

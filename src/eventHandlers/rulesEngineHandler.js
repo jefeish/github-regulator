@@ -408,7 +408,7 @@ class rulesEngineHandler extends Command {
     let e
     const eventName = context.name + '.' + context.payload.action
     context.log.info('eventName: ' + eventName)
-    context.log.debug('context.payload.sender.type: ' + util.inspect(context.payload.sender.type))
+    context.log.info('context.payload.sender.type: ' + util.inspect(context.payload.sender.type))
 
     try {
       if (context.payload.sender.type != 'Bot') {
@@ -418,7 +418,7 @@ class rulesEngineHandler extends Command {
           .run(facts, { cache: false })
           .then(results => {
             results.events.map(event => {
-              context.log.info('Routing to handler class: ' + event.type + '(' + context + ',' + event.params + ')')
+              context.log.info('Routing to handler class: ' + event.type + '(' + context + ',' + util.inspect(event.params) + ')')
               const m = new handlerMap[event.type]()
               m.execute(context, event.params)
             })
