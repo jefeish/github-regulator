@@ -40,9 +40,10 @@ With that in mind, we are trying to manage the state/configuration of a system (
 
 ## Key features
 
-- **Policies are written as Yaml formatted Rules**
+- **Policies are Yaml formatted Rules, with control**
   - The `Server-Side` policies are located in [src/rules/active](src/rules/active)
   - The `Client-Side` policies location is set in [.github/config.yml](.github/config.yml)
+    - reference a Repo, containing a `.github/rules` folder, as the location for the `Client-Side` policies
 
 - **We provide a set of default Policy Event-Handler classes** (Tasks)
   - You can find them in, [src/eventHandlers](src/eventHandlers)
@@ -56,27 +57,27 @@ With that in mind, we are trying to manage the state/configuration of a system (
   - A readable doc of the rules can be found in, the App UI.
     - Example: http://localhost:3000/policy-App/samples
 
-**Note:** Keep in mind that **an App Reacts on Events, it cannot prevent User-Actions.** The prevention is what the Policies can provide via configuration settings.
+**Note:** Keep in mind that **an App Reacts on Events, it cannot prevent User-Actions.** Policies and Handlers can **react** to modify GitHub settings.
 
 ---
 
 ## Developer Notes
 
-The concept of the Policy-App is to **decouple** `conditions`=`policies`=`rules`, from business logic code, `handlers`.
+The concept of the Policy-App is to **decouple** `conditions`/`policies`/`rules`, from business logic code, `handlers`.
 
 ### Types of Handlers
 
 In general there are three main types of handlers
 
 - **Generic:** Handler code is event context agnostic. Usable with any Policy.
+
+  > The `Generic` type is the most reusable type of handler
+
 - **Event Dependent:** Handler code relies on specific event context data.
+  > The `Event Dependent` type might be the most common
+
 - **Policy Dependent:** Handler code represents a specific Policy, limited flexibility.
-
-> The `Generic` type is the most reusable type of handler
-
-> The `Event Dependent` type might be the most common
-
-> The `Policy Dependent` type 'hard-codes' Policy logic in the Handler. This 'breaks' the decoupling of the **Policies** and the **Handlers** but might be required choice in some cases.
+  > The `Policy Dependent` type 'hard-codes' Policy logic in the Handler. This 'breaks' the decoupling of the **Policies** and the **Handlers** but might be the required choice in some cases.
 
 ### Event Handlers That Require Specific Event Data
 
